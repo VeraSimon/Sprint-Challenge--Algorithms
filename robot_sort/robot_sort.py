@@ -85,11 +85,13 @@ class SortingRobot:
         Turn on the robot's light
         """
         self._light = "ON"
+
     def set_light_off(self):
         """
         Turn off the robot's light
         """
         self._light = "OFF"
+
     def light_is_on(self):
         """
         Returns True if the robot's light is on and False otherwise.
@@ -100,19 +102,53 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        #   move_right: moves the robot right, then returns true if successful
+        #   move_left: moves the robot left, then returns true if successful
+        #   swap_item: swaps the item the robot is carrying with the item at the current position
+        #   compare_item: Compares held item with that at current position, returning 1 if held item value is greater, 0 if equal, and -1 if less, or None if either is none
+        #   set_light_on: turns the robot light on
+        #   set_light_off: turns the robot light off
+        #   light_is_on: returns the state of the robot light
+
+        # I'm a bit befuddled here about what sort this might be similar to that doesn't depend on the length of the array in some manner. I could probably do this with bubble sort, but it would definitely be clunky.
+
+        # Bubble-ish sort, O(n^2)
+        # 1. First off, we turn the light on to denote that we're starting to sort the list.
+        # 2. Then, we jump into the loop
+        # 3. Check if the robot can no longer move right, then shift them back to the begining index of the list.
+        # 4. Turn the light off and pick up the item at the robots current location.
+        # 5 (swap). Then we move right, do a comparison, swap if the item at the new position is greater, move back a position, drop the new item in the previous place, and turn the light on.
+        # 5 (return) If the item in the new position is less than or equal, we move back and put the held item back in its original spot.
+        # 6. Move the robot right by one.
+
+        self.set_light_on()
+
+        while self.light_is_on() == True:
+            if self.can_move_right == False:
+                while self.can_move_left() == True:
+                    self.move_left()
+            self.set_light_off()
+            self.swap_item()
+            self.move_right()
+            if self.compare_item() == 1:
+                self.swap_item()
+                self.move_left()
+                self.swap_item()
+                self.set_light_on()
+            else:
+                self.move_left()
+                self.swap_item()
+            self.move_right()
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
+         45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 
     robot.sort()
     print(robot._list)
-
-

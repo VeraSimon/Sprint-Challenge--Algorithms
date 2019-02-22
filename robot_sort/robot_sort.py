@@ -110,7 +110,7 @@ class SortingRobot:
         #   set_light_off: turns the robot light off
         #   light_is_on: returns the state of the robot light
 
-        # I'm a bit befuddled here about what sort this might be similar to that doesn't depend on the length of the array in some manner. I could probably do this with bubble sort, but it would definitely be clunky. FWIW, it kind of feels like a quick sort, but I can't for the life of me think of how I would define the low and high values without creating variables.
+        # I'm a bit befuddled here about what sort this might be similar to that doesn't depend on the length of the array in some manner. I could probably do this with bubble sort, but it would definitely be clunky.
 
         # Bubble-ish sort, O(n^2)
         # 1. First off, we turn the light on to denote that we're starting to sort the list.
@@ -124,21 +124,22 @@ class SortingRobot:
         self.set_light_on()
 
         while self.light_is_on() == True:
-            if self.can_move_right == False:
+            self.set_light_off()
+            if self.can_move_right() == False:
                 while self.can_move_left() == True:
                     self.move_left()
-            self.set_light_off()
-            self.swap_item()
-            self.move_right()
-            if self.compare_item() == 1:
+            while self.can_move_right() == True:
                 self.swap_item()
-                self.move_left()
-                self.swap_item()
-                self.set_light_on()
-            else:
-                self.move_left()
-                self.swap_item()
-            self.move_right()
+                self.move_right()
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    self.set_light_on()
+                else:
+                    self.move_left()
+                    self.swap_item()
+                self.move_right()
 
 
 if __name__ == "__main__":

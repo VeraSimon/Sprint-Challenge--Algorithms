@@ -110,7 +110,7 @@ class SortingRobot:
         #   set_light_off: turns the robot light off
         #   light_is_on: returns the state of the robot light
 
-        # I'm a bit befuddled here about what sort this might be similar to that doesn't depend on the length of the array in some manner. I could probably do this with bubble sort, but it would definitely be clunky.
+        # I'm a bit befuddled here about what sort this might be similar to that doesn't depend on the length of the array in some manner. I could probably do this with bubble sort, but it would definitely be clunky. FWIW, it kind of feels like a quick sort, but I can't for the life of me think of how I would define the low and high values without creating variables.
 
         # Bubble-ish sort, O(n^2)
         # 1. First off, we turn the light on to denote that we're starting to sort the list.
